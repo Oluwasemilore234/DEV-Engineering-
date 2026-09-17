@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Terminal, ArrowRight, ShieldCheck, Cpu, Sun, Moon, Coins, ChevronDown, Check } from 'lucide-react';
+import { Menu, X, Terminal, ArrowRight, ShieldCheck, Cpu, Sun, Moon, Coins, ChevronDown, Check, Code2 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useCurrency, CurrencyCode } from '../context/CurrencyContext';
 
@@ -7,9 +7,10 @@ interface NavbarProps {
   onOpenDiscovery: () => void;
   onOpenQuote: () => void;
   onOpenManifesto: () => void;
+  onOpenMatrix?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenDiscovery, onOpenQuote, onOpenManifesto }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenDiscovery, onOpenQuote, onOpenManifesto, onOpenMatrix }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
@@ -167,6 +168,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDiscovery, onOpenQuote, on
               )}
             </button>
 
+            {/* Matrix Digital Rain Mode Button */}
+            {onOpenMatrix && (
+              <button
+                type="button"
+                onClick={onOpenMatrix}
+                className="p-2 rounded-lg border border-slate-700/80 bg-slate-900/60 hover:bg-slate-800 text-emerald-400 hover:text-emerald-300 transition-all flex items-center justify-center cursor-pointer group shadow-sm"
+                title="Launch Fullscreen Raining Matrix Code Simulator"
+                aria-label="Launch Matrix Mode"
+              >
+                <Code2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              </button>
+            )}
+
             <button
               onClick={onOpenManifesto}
               className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-700/80 text-slate-300 hover:text-white hover:border-slate-500 transition-colors hidden md:flex items-center gap-1.5"
@@ -264,6 +278,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDiscovery, onOpenQuote, on
               </a>
             ))}
             <div className="pt-2 border-t border-slate-800 flex flex-col gap-2">
+              {onOpenMatrix && (
+                <button
+                  onClick={() => { setMobileMenuOpen(false); onOpenMatrix(); }}
+                  className="w-full px-3 py-2 text-xs font-mono text-left rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 flex items-center gap-2"
+                >
+                  <Code2 className="w-4 h-4 text-emerald-400" />
+                  <span>Raining Matrix Code Simulator</span>
+                </button>
+              )}
               <button
                 onClick={() => { setMobileMenuOpen(false); onOpenManifesto(); }}
                 className="w-full px-3 py-2 text-xs font-mono text-left rounded-lg border border-slate-800 text-slate-300 hover:text-white flex items-center gap-2"

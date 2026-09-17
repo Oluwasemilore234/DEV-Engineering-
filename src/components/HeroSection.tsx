@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, ShieldCheck, Terminal, CheckCircle2, ChevronRight, Activity, Zap, Play } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Terminal, CheckCircle2, ChevronRight, Activity, Zap, Play, Sparkles } from 'lucide-react';
 import { TRUST_METRICS, CERTIFICATIONS, CLIENT_LOGOS } from '../data/engineeringData';
 import { InteractiveSystemVideo } from './InteractiveSystemVideo';
 import { TechMarquee } from './TechMarquee';
+import { MatrixRain } from './MatrixRain';
 
 interface HeroSectionProps {
   onOpenDiscovery: () => void;
@@ -14,6 +15,9 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDiscovery, onOpenQuote, onOpenManifesto }) => {
   return (
     <section className="relative pt-32 pb-16 md:pt-38 md:pb-24 overflow-hidden bg-slate-950 text-slate-100">
+      {/* Raining Matrix Code Effect Canvas Background */}
+      <MatrixRain opacity={0.32} speedMultiplier={1.0} isBackground={true} />
+
       {/* Background Architectural Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
       

@@ -11,6 +11,7 @@ import { LeadCaptureSection } from './components/LeadCaptureSection';
 import { Footer } from './components/Footer';
 import { DiscoveryModal } from './components/DiscoveryModal';
 import { ManifestoModal } from './components/ManifestoModal';
+import { MatrixRain } from './components/MatrixRain';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { CurrencyProvider } from './context/CurrencyContext';
 
@@ -18,6 +19,7 @@ function AppContent() {
   const [discoveryModalOpen, setDiscoveryModalOpen] = useState(false);
   const [discoveryModalMode, setDiscoveryModalMode] = useState<'discovery' | 'quote'>('discovery');
   const [manifestoModalOpen, setManifestoModalOpen] = useState(false);
+  const [matrixModalOpen, setMatrixModalOpen] = useState(false);
   const [selectedPlanForContact, setSelectedPlanForContact] = useState<string | undefined>(undefined);
   const { isDark } = useTheme();
 
@@ -49,14 +51,23 @@ function AppContent() {
   };
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-emerald-500 selection:text-slate-950 transition-colors duration-200 ${
+    <div className={`min-h-screen font-sans selection:bg-emerald-500 selection:text-slate-950 transition-colors duration-200 relative ${
       isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
     }`}>
+      {/* Continuous Global Matrix Rain Canvas across entire application */}
+      <MatrixRain
+        opacity={isDark ? 0.12 : 0.05}
+        isBackground={true}
+        speedMultiplier={0.85}
+        className="fixed inset-0 pointer-events-none z-0"
+      />
+
       {/* Navigation Header */}
       <Navbar
         onOpenDiscovery={handleOpenDiscovery}
         onOpenQuote={handleOpenQuote}
         onOpenManifesto={handleOpenManifesto}
+        onOpenMatrix={() => setMatrixModalOpen(true)}
       />
 
       {/* Main Sections */}
@@ -115,6 +126,16 @@ function AppContent() {
         isOpen={manifestoModalOpen}
         onClose={() => setManifestoModalOpen(false)}
       />
+
+      {/* Raining Matrix Code Fullscreen Simulator */}
+      {matrixModalOpen && (
+        <MatrixRain
+          forceFullscreen={true}
+          isBackground={false}
+          interactive={true}
+          onClose={() => setMatrixModalOpen(false)}
+        />
+      )}
     </div>
   );
 }
